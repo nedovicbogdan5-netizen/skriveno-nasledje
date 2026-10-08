@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="sr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skriveno nasleđe</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f5efe3;--card:#fffdf8;--tx:#1c1915;--mu:#70675a;--g:#a8782a;--g2:#d4a85a;--ok:#2f7d4f;--bd:rgba(60,45,20,.12);--sh:0 10px 30px rgba(60,45,20,.10);--hf:'Playfair Display',Georgia,serif;--bf:'Inter',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1015;--card:#171b22;--tx:#f1ece2;--mu:#9a9486;--g:#d4a85a;--g2:#f0cf8e;--ok:#5cc189;--bd:rgba(255,255,255,.09);--sh:0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0d1015;--card:#171b22;--tx:#f1ece2;--mu:#9a9486;--g:#d4a85a;--g2:#f0cf8e;--ok:#5cc189;--bd:rgba(255,255,255,.09);--sh:0 10px 30px rgba(0,0,0,.4)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 var(--bf);-webkit-font-smoothing:antialiased}
+main{max-width:680px;margin:0 auto;padding:18px 16px 60px;animation:in .4s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1,h2,h3{font-family:var(--hf);font-weight:700;margin:.2em 0;letter-spacing:.2px}
+h1{font-size:34px;line-height:1.15}
+.eyebrow{font:600 11px var(--bf);letter-spacing:.22em;text-transform:uppercase;color:var(--g)}
+.mu{color:var(--mu);font-size:14px}
+.hero{padding:26px 22px;border-radius:24px;color:#fff;background:radial-gradient(circle at 85% 0%,rgba(212,168,90,.35),transparent 55%),linear-gradient(145deg,#1b2433,#0d1015);box-shadow:var(--sh);margin-bottom:18px}
+.hero p{color:#cfc8ba;margin:.4em 0 0}
+.bar{height:5px;background:rgba(255,255,255,.15);border-radius:9px;overflow:hidden;margin:14px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--g2));border-radius:9px;transition:width .6s}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:18px;margin:14px 0;box-shadow:var(--sh)}
+.city{position:relative;overflow:hidden;cursor:pointer;color:#fff;padding:22px;border:0;background:linear-gradient(135deg,var(--c),#0d1015 130%);transition:transform .2s}
+.city:active{transform:scale(.985)}
+.city:after{content:attr(data-n);position:absolute;right:14px;top:-8px;font:700 90px var(--hf);opacity:.13}
+.city h2{font-size:28px;margin:4px 0}
+.city p{color:rgba(255,255,255,.85);margin:6px 0 10px;font-size:14px}
+.city .mu{color:rgba(255,255,255,.75)}
+button,.btn{font:600 15px var(--bf);background:linear-gradient(135deg,var(--g2),var(--g));color:#1a1408;border:0;border-radius:99px;padding:12px 22px;cursor:pointer;box-shadow:0 4px 14px rgba(168,120,42,.3)}
+button.g{background:transparent;color:var(--g);border:1px solid var(--g);box-shadow:none}
+button:disabled{opacity:.45}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:14px;box-shadow:none;font-weight:500}
+.opt.sel{border-color:var(--g);outline:2px solid var(--g)}
+input[type=text],textarea{width:100%;padding:13px;border-radius:14px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:16px var(--bf)}
+.tl{position:relative;margin-left:14px;border-left:2px solid var(--bd);padding-left:22px}
+.q{position:relative;cursor:pointer;margin:12px 0}
+.q .n{position:absolute;left:-40px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--card);border:2px solid var(--g);display:grid;place-items:center;font:700 13px var(--bf);color:var(--g)}
+.q.done .n{background:var(--ok);border-color:var(--ok);color:#fff}
+.q.lock{opacity:.45;cursor:default}.q.lock .n{border-color:var(--bd);color:var(--mu)}
+.q b{font:700 18px var(--hf)}
+.fact{background:rgba(47,125,79,.12);border-left:3px solid var(--ok);border-radius:12px;padding:12px 14px;margin-top:14px}
+.tip{background:rgba(212,168,90,.15);border-radius:14px;padding:12px 14px}
+.err{color:#c0392b;font-size:14px;margin-top:6px}
+img.pv{width:100%;border-radius:16px;margin-top:12px;display:block}
+video{width:100%;border-radius:16px;margin-top:10px}
+.stamps,.qrs{display:flex;gap:12px;flex-wrap:wrap}
+.st{border:2px dashed var(--bd);border-radius:50%;width:76px;height:76px;display:grid;place-items:center;text-align:center;font:600 11px var(--bf);color:var(--mu);cursor:pointer}
+.st.on{border:3px double var(--c);color:var(--c);transform:rotate(-8deg);background:color-mix(in srgb,var(--c) 10%,transparent)}
+.qi{text-align:center;width:160px;font:12px var(--bf);background:#fff;color:#000;padding:8px;border-radius:10px}
+a{color:var(--g)}
+.page{aspect-ratio:210/297;container-type:inline-size;background:#fffdf8;color:#1c1915;max-width:794px;margin:18px auto;box-shadow:var(--sh);border-radius:6px;overflow:hidden;position:relative;font-family:var(--bf)}
+.pg{position:absolute;inset:0;padding:7cqw 8cqw 5cqw;display:flex;flex-direction:column;overflow:hidden}
+.pg .ey{font:600 1.6cqw var(--bf);letter-spacing:.25em;text-transform:uppercase;color:#a8782a}
+.pg h1{font-size:9cqw;margin:1cqw 0;color:#1c1915}
+.pg h3{font:700 3.2cqw var(--hf);margin:.8cqw 0 .4cqw;color:#1c1915}
+.pg .ph{width:100%;border-radius:1.2cqw;display:block;object-fit:cover}
+.pg .nt{font:italic 2.3cqw/1.45 var(--hf);color:#2c2823;margin:.6cqw 0}
+.pg .ft{font-size:1.9cqw;color:#70675a;line-height:1.5}
+.pg .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:1.6cqw;color:#9a9080;border-top:1px solid #e6dccb;padding-top:1.5cqw}
+.pg .row{display:flex;gap:3cqw;margin-top:2.4cqw;align-items:flex-start}
+.pg .stat{flex:1;border:1px solid #e6dccb;border-radius:1.5cqw;padding:2cqw;text-align:center;font-size:1.9cqw;color:#70675a}
+.pg .stat b{display:block;font:700 5cqw var(--hf);color:#a8782a}
+@media print{@page{size:A4;margin:0}button,.np{display:none}body,main{background:#fff;padding:0;margin:0;max-width:none;animation:none}.page{width:210mm;height:297mm;aspect-ratio:auto;margin:0;box-shadow:none;border-radius:0;break-after:page}}
+</style></head><body><main id="app"></main>
+<script>
+const CITIES=[
+{id:'ns',name:'Novi Sad',c:'#2a6fb0',tag:'Grad na Dunavu',map:'Petrovaradinska tvrđava',intro:'Tvrđava, mostovi koji su se vratili, muzeji i zagonetke uz Dunav.',Q:[
+{t:'Vreme kojem se ne veruje',s:'Na tvrđavi sat greši samo na prvi pogled.',qr:1,p:1,k:'c',q:'Ribari na Dunavu nekad su gledali ka tvrđavi da vide koliko je sati. Zato je jedna kazaljka veća. Koja?',o:['Minutna','Satna'],a:1,f:'Satna kazaljka je veća da bi je ribari videli izdaleka.'},
+{t:'Zagonetka sa kaldrme',s:'Kreni niz stepenice tvrđave.',k:'t',q:'Nisam grad, a ispod grada sam. U meni su ateljei, kafići i stare kaldrme. Kako se zovem?',a:['podgradje'],h:'Počinje sa „pod”.',f:'Podgrađe je nekad bilo vojno naselje, a danas je umetnička četvrt.'},
+{t:'Čuvar sećanja',s:'Prošlost grada stanuje u muzeju na tvrđavi.',p:1,k:'f',q:'U Muzeju grada Novog Sada nađi predmet koji bi ti ispričao priču kad bi mogao da govori. Fotografiši ga i opiši.',f:'Muzeji pamte ono što ljudi zaborave.'},
+{t:'Most koji se vratio',s:'Duga nad Dunavom spaja grad i tvrđavu.',p:1,k:'c',q:'Stani na Varadinski most i zamisli ga bez luka. U kojoj godini su novosadski mostovi srušeni u bombardovanju?',o:['1991.','1999.','2003.'],a:1,f:'Mostovi su srušeni 1999, a Varadinski most je nanovo podignut 2018.'},
+{t:'Bronzani govornik',s:'Na trgu ga svi mimoilaze, a on svakoga gleda.',qr:1,p:1,k:'t',q:'Pronađi bronzanog političara na Trgu slobode. Koje mu je prezime?',a:['miletic','svetozar miletic'],h:'Bio je prvi čovek grada u 19. veku.',f:'Svetozar Miletić je bio gradonačelnik i vođa Srba u Ugarskoj.'},
+{t:'Čelik sa potpisom',s:'Drugi most nosi ime svog tvorca.',p:1,k:'t',q:'Žeželjev most nosi ime inženjera koji ga je smislio. Upiši njegovo prezime.',a:['zezelj','branko zezelj'],h:'Ime je napisano na tabli kod mosta.',f:'Branko Žeželj je projektovao most, a obnovljen je posle 1999.'},
+{t:'Krov kao slagalica',s:'Katolička porta krije krov iz bajke.',p:1,k:'f',q:'Pogledaj krov crkve Imena Marijinog. Koliko boja vidiš i na šta te podseća?',f:'Šareni crep je zaštitni znak Novog Sada.'},
+{t:'Dom molitve i muzike',s:'Zdanje iz 1909. i danas ima publiku.',qr:1,p:1,k:'c',q:'Sinagogu je projektovao Lipot Baumhorn. Šta se u njoj danas najčešće događa?',o:['Koncerti i kultura','Pijaca','Pošta'],a:0,f:'Danas je kulturni centar sa koncertima i izložbama.'},
+{t:'Pokrajinska riznica',s:'Ovde se sreće ceo severni Balkan.',p:1,k:'f',q:'Uđi u Muzej Vojvodine i zapiši jedan narod koji je ostavio trag. Šta si o njemu saznao?',f:'Vojvodina je mozaik kultura.'},
+{t:'Knjige i ljudi',s:'Najstarija kulturna ustanova Srba preselila se ovde.',qr:1,p:1,k:'c',q:'Matica srpska osnovana je 1826. u jednom drugom gradu. U kom?',o:['U Pešti','U Beogradu','U Novom Sadu'],a:0,f:'Osnovana je u Pešti, a u Novi Sad se preselila 1864.'},
+{t:'Ruke majstora',s:'Znanje se ne vidi samo u vitrinama.',k:'tip',q:'Savet: prošetaj ateljeima u Podgrađu i pitaj umetnike kako su naučili zanat.',f:'Razgovor sa majstorom je najbolji vodič.'},
+{t:'Poslednji zalazak',s:'Završni zadatak ima najlepši pogled.',p:1,k:'f',q:'Pred zalazak sa bedema napiši rečenicu: šta bi poručio ljudima koji nikad nisu videli Novi Sad?',f:'Svaki grad je priča koju neko ispriča.'}]},
+{id:'ce',name:'Cetinje',c:'#a0322d',tag:'Stara prestonica',map:'Cetinjski manastir',intro:'Manastir, prva štamparija, muzeji i dvorovi crnogorskih vladara.',Q:[
+{t:'Temelji prestonice',s:'Zidine čuvaju ime osnivača grada.',qr:1,p:1,k:'c',q:'Manastir je 1484. podigao vladar iz čuvene porodice Crnojevića. Kako se zvao?',o:['Ivan Crnojević','Njegoš','Nikola I'],a:0,f:'Ivan Crnojević je preselio dvor na Cetinje.'},
+{t:'Mastilo i olovo',s:'Ovde su slova prvi put dobila štampu.',k:'c',q:'Oktoih prvoglasnik je jedna od prvih štampanih knjiga na ćirilici. U kom je veku štampan?',o:['14. veku','15. veku','17. veku'],a:1,f:'Štampan je 1494. u štampariji Crnojevića.'},
+{t:'Kuća sa zelenim suknom',s:'Njegoševa kuća ima nadimak po igri.',qr:1,p:1,k:'t',q:'Kuća je dobila ime po stolu sa zelenim suknom, kuglama i štapom. Kako se zove?',a:['biljarda'],h:'Ime počinje sa B.',f:'Po predanju je ime dobila po biljarskom stolu.'},
+{t:'Riznica Crne Gore',s:'Pod jednim krovom čuva se nekoliko vekova.',p:1,k:'f',q:'U Narodnom muzeju odaberi predmet za koji bi rekao da je najstariji. Opiši ga.',f:'Narodni muzej čuva bogatu zbirku.'},
+{t:'Kralj u dvorcu',s:'Skroman dvor jednog velikog vladara.',qr:1,p:1,k:'c',q:'Knez Nikola postao je kralj Nikola I. Koje godine je Crna Gora proglašena kraljevinom?',o:['1878.','1910.','1945.'],a:1,f:'Kraljevina je proglašena 1910.'},
+{t:'Pesnik i vladika',s:'Njegoš je pisao stihove i vladao.',p:1,k:'f',q:'U Njegoševoj spomen-sobi ili muzeju pronađi stih koji ti se dopada. Šta znači svojim rečima?',f:'Njegoš je autor Gorskog vijenca.'},
+{t:'Diplomatska zagonetka',s:'Prošetaj centrom i pogledaj velike kuće.',k:'c',q:'U Cetinju ima mnogo zgrada nekadašnjih ambasada. Zašto?',o:['Bilo je prestonica','Bila je luka','Bio je univerzitet'],a:0,f:'Strane države su imale ambasade dok je Cetinje bilo prestonica.'},
+{t:'Luk nad kanjonom',s:'Jedan izlet ide do čuvenog mosta.',k:'c',q:'Most Đurđevića Tara iz 1940. je među najvećim betonskim lučnim mostovima. Preko koje reke ide?',o:['Morača','Tara','Piva'],a:1,f:'Prelazi preko kanjona Tare.'},
+{t:'Planina koja zove',s:'Njegošev mauzolej je iznad grada.',k:'tip',q:'Savet: ako možeš, popni se do mauzoleja na Lovćenu i uživaj u pogledu.',f:'Njegoš je sahranjen na Lovćenu.'},
+{t:'Natpis iz prošlosti',s:'Zgrade pamte vladare.',p:1,k:'f',q:'Nađi grb ili natpis na zgradi u centru. Fotografiši ga i zapiši šta piše.',f:'Natpisi su skriveni dokumenti.'},
+{t:'Ruke majstora',s:'U starom jezgru čekaju ručni radovi.',k:'tip',q:'Savet: razgovaraj sa majstorima (filigran, opanci, suveniri) i pitaj kako su naučili zanat.',f:'Zanat živi dok ga neko pita.'},
+{t:'Poslednja priča',s:'Završi priču prestonice.',p:1,k:'f',q:'Napiši rečenicu: po čemu bi Cetinje trebalo da pamte ljudi koji ga nikad nisu videli?',f:'Hvala što si ga otkrio.'}]},
+{id:'mo',name:'Mostar',c:'#2e8b7a',tag:'Grad mostara',map:'Stari most Mostar',intro:'Mostovi, kamen, hamami i majstori bakra pored smaragdne Neretve.',Q:[
+{t:'Luk između dva sveta',s:'Most koji je srušen i ponovo podignut.',qr:1,p:1,k:'c',q:'Stari most je 1566. podigao učenik čuvenog Sinana. Kako se zvao?',o:['Mimar Hajrudin','Mimar Sinan','Mehmed-paša'],a:0,f:'Srušen je 1993, obnovljen 2004, a 2005. upisan na UNESCO listu.'},
+{t:'Zagonetka imena',s:'Pitaj prvog prolaznika šta znači ime grada.',k:'t',q:'Grad nosi ime po onima koji su stražarili na mostu. Kako se zovu ti čuvari?',a:['mostari','mostar'],h:'Most + čuvar.',f:'Mostari su čuvali most, a po njima grad ima ime.'},
+{t:'Kula i most',s:'Kula uz most krije priču o njegovoj gradnji.',p:1,k:'f',q:'U Muzeju Starog mosta pronađi detalj koji te iznenadi. Fotografiši i opiši.',f:'Muzej čuva i svedočenja o obnovi 2004.'},
+{t:'Krivi most',s:'Manji most, stariji od velikog.',p:1,k:'c',q:'Kriva ćuprija je, po predanju, nastala kao:',o:['Proba Hajrudina pre Starog mosta','Most za vozove','Kopija iz Beča'],a:0,f:'Podignuta je oko 1558. na Radobolji.'},
+{t:'Odjek čekića',s:'U uličicama bazara zvecka bakar.',k:'tip',q:'Savet: u Kujundžiluku potraži kovača bakra i pitaj kako nastaje džezva.',f:'Bakarni zanat je vekovima deo grada.'},
+{t:'Pogled sa minareta',s:'Džamija sa koje se vidi most.',qr:1,p:1,k:'f',q:'U Koski Mehmed-pašinoj džamiji opiši šta vidiš kroz prozor ili sa terase.',f:'Podignuta je 1618.'},
+{t:'Hrabrost u zraku',s:'Mladići čekaju pravi trenutak.',qr:1,p:1,k:'c',q:'Mostarski skakači svake godine hrabro skaču sa mosta u hladnu, smaragdnu reku. U koju?',o:['Drina','Bosna','Neretva'],a:2,f:'Skok sa Starog mosta je tradicija stara vekovima.'},
+{t:'Kuća iz vremena sultana',s:'Osmanska kuća pokazuje kako se nekad živelo.',p:1,k:'f',q:'U Bišćevića kući pronađi nešto što danas ne koristimo. Fotografiši i opiši čemu je služilo.',f:'Kuća čuva osmanski način života.'},
+{t:'Hercegovačka riznica',s:'Priče o regiji pod jednim krovom.',p:1,k:'f',q:'U Muzeju Hercegovine odaberi predmet koji ti je najzanimljiviji i objasni zašto.',f:'Muzej čuva svedočanstva regije.'},
+{t:'Zadužbina begova',s:'Jedna od najlepših džamija u Hercegovini.',p:1,k:'c',q:'Karađoz-begova džamija podignuta je 1557. U kom veku?',o:['15.','16.','18.'],a:1,f:'Podignuta je kao zadužbina Mehmed-bega Karađoza.'},
+{t:'Ruke majstora',s:'Pored bakra tu su ćilimi i filigran.',k:'tip',q:'Savet: razgovaraj sa majstorom i pitaj ga koja je tajna njegovog zanata.',f:'Pitaj, saslušaj, zapamti.'},
+{t:'Poslednji most',s:'Završi priču pored reke.',p:1,k:'f',q:'Stani pored Neretve i napiši rečenicu: šta bi poručio gradu koji se podigao iz ruševina?',f:'Mostar se podigao iz ruševina.'}]}];
+let S={done:{},scan:{},notes:{},demo:0},P={};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('sn3')||'{}'));P=JSON.parse(localStorage.getItem('sn3p')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('sn3',JSON.stringify(S))}catch(e){}};
+const saveP=()=>{try{localStorage.setItem('sn3p',JSON.stringify(P))}catch(e){}};
+const $=document.getElementById('app');
+const esc=s=>String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>s.toLowerCase().replace(/đ/g,'dj').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+const code=(c,i)=>c.id.toUpperCase()+String(i+1).padStart(2,'0');
+const key=(c,i)=>c.id+i;
+const cd=c=>c.Q.filter((_,i)=>S.done[key(c,i)]).length;
+const CN=id=>CITIES.find(x=>x.id==id);
+let pick=null,cam=null;
+function view(h){window.scrollTo(0,0);$.style.animation='none';$.offsetHeight;$.style.animation='';$.innerHTML=h}
+function home(){stopCam();const t=CITIES.reduce((a,c)=>a+cd(c),0);
+view(`<div class="hero"><div class="eyebrow">Digitalni vodič kroz nasleđe</div><h1>Skriveno nasleđe</h1><p>Nađi spomenike, skeniraj tajne kodove, reši zagonetke i sakupi svoj putopis.</p><div class="bar"><i style="width:${t/36*100}%"></i></div><div class="mu" style="color:#cfc8ba">${t} od 36 otkrivenih tajni</div></div>`+
+CITIES.map((c,n)=>`<div class="card city" style="--c:${c.c}" data-n="0${n+1}" onclick="city('${c.id}')"><div class="eyebrow" style="color:#f0cf8e">${c.tag}</div><h2>${c.name}</h2><p>${c.intro}</p><div class="bar"><i style="width:${cd(c)/12*100}%"></i></div><span class="mu">${cd(c)}/12 zadataka${cd(c)==12?' · izveštaj spreman':''}</span></div>`).join('')+
+`<div class="card"><div class="eyebrow">Pasoš nasleđa</div><div class="stamps" style="margin-top:12px">${CITIES.map(c=>`<div class="st ${cd(c)==12?'on':''}" style="--c:${c.c}" onclick="${cd(c)==12?`report('${c.id}')`:`city('${c.id}')`}">${c.name}</div>`).join('')}</div></div>
+<button class="g" onclick="admin()">QR kodovi i demo</button> <button class="g" onclick="report('ns',1)">👁 Demo izveštaj</button> <button class="g" onclick="if(confirm('Resetovati napredak i fotografije?')){S={done:{},scan:{},notes:{},demo:S.demo};P={};save();saveP();home()}">Reset</button>`)}
+function city(id){stopCam();const c=CN(id),d=cd(c);
+view(`<button class="g" onclick="home()">← Nazad</button><div class="eyebrow" style="margin-top:16px">${c.tag}</div><h1 style="color:${c.c}">${c.name}</h1><div class="tl">`+
+c.Q.map((q,i)=>{const dn=S.done[key(c,i)],lk=i>d&&!dn;
+return `<div class="card q ${dn?'done':''} ${lk?'lock':''}" ${lk?'':`onclick="quest('${id}',${i})"`}><div class="n">${dn?'✓':lk?'🔒':i+1}</div><b>${q.t}</b>${q.qr?' 📍':''}${q.k=='tip'?' 💡':''}<div class="mu">${lk?'Reši prethodni zadatak':q.s}</div></div>`}).join('')+`</div>`+
+(d==12?`<button onclick="report('${id}')">📖 Otvori moj izveštaj</button> `:'')+`<button class="g" onclick="report('${id}',1)">👁 Demo izveštaj</button> `+
+`<a href="https://www.google.com/maps/search/${encodeURIComponent(c.map)}" target="_blank" rel="noopener">📍 Otvori mapu</a>`)}
+function quest(id,i){stopCam();const c=CN(id),q=c.Q[i],k=key(c,i);pick=null;window._c=c;window._i=i;
+const need=q.qr&&!S.scan[k]&&!S.demo,dn=S.done[k];let body;
+if(need)body=`<div class="tip">📍 Idi do lokacije i skeniraj QR kod na tabli ili spomeniku.</div><div style="margin:12px 0"><button onclick="scan()">📷 Skeniraj QR</button></div><video id="vd" hidden playsinline></video><input type="text" id="mc" placeholder="Ili upiši kod sa table (npr. ${code(c,i)})"><button class="g" style="margin-top:8px" onclick="manual()">Potvrdi kod</button><div id="msg" class="err"></div>`;
+else body=`<h3 style="font-size:20px">${q.q}</h3>`+(q.p?`<label class="btn" style="display:inline-block;margin:6px 0">📸 ${P[k]?'Zameni fotografiju':'Fotografiši lokaciju'}<input type="file" accept="image/*" capture="environment" hidden onchange="pic(this)"></label><div id="pv">${P[k]?`<img class="pv" src="${P[k]}" alt="">`:''}</div>`:'')+
+`<div style="margin-top:8px">${q.k=='c'?q.o.map((o,j)=>`<button class="opt" onclick="sel(${j},this)">${o}</button>`).join(''):q.k=='t'?`<input type="text" id="v" placeholder="Tvoj odgovor">`:q.k=='f'?`<textarea id="v" rows="4" placeholder="Zapiši svoje zapažanje...">${esc(S.notes[k]||'')}</textarea>`:''}</div><div id="msg" class="err"></div><div style="margin-top:12px"><button id="ok" onclick="check()">${q.k=='tip'?'Zabeleži posetu':'Proveri'}</button> ${q.h?`<button class="g" onclick="document.getElementById('h').textContent='💡 '+_c.Q[_i].h">Savet</button>`:''}</div><div id="h" class="mu" style="margin-top:8px"></div>`;
+view(`<button class="g" onclick="city('${id}')">← ${c.name}</button><div class="eyebrow" style="margin-top:16px">Zadatak ${i+1} od 12</div><h1>${q.t}</h1><p class="mu"><i>${q.s}</i></p><div class="card">${body}</div><div id="res">${dn?`<div class="fact">✅ ${q.f}</div>`:''}</div>`)}
+function sel(j,b){pick=j;document.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')}
+function pic(el){const f=el.files[0];if(!f)return;const im=new Image(),u=URL.createObjectURL(f),k=key(_c,_i);
+im.onload=()=>{const r=Math.min(1,720/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=im.width*r;cv.height=im.height*r;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+P[k]=cv.toDataURL('image/jpeg',.65);saveP();document.getElementById('pv').innerHTML=`<img class="pv" src="${P[k]}" alt="">`;URL.revokeObjectURL(u)};im.src=u}
+function check(){const c=_c,i=_i,q=c.Q[i],k=key(c,i),m=document.getElementById('msg');m.textContent='';let ok=false;
+if(q.p&&!P[k]&&!S.demo){m.textContent='Prvo fotografiši lokaciju.';return}
+if(q.k=='tip')ok=true;
+else if(q.k=='c'){if(pick===null){m.textContent='Izaberi odgovor.';return}ok=pick==q.a}
+else{const v=document.getElementById('v').value;if(q.k=='f'){if(v.trim().length<15){m.textContent='Napiši bar 15 slova.';return}S.notes[k]=v.trim();ok=true}else ok=q.a.includes(norm(v))}
+if(!ok){m.textContent='Skoro! Pokušaj ponovo ili uzmi savet.';return}
+S.done[k]=1;save();document.getElementById('ok').disabled=true;const nx=c.Q[i+1];
+document.getElementById('res').innerHTML=`<div class="fact"><b>✅ Bravo!</b><p>${q.f}</p>${nx?`<p class="mu">Sledeće: <b>${nx.t}</b></p>`:'<p><b>🎉 Pečat grada osvojen! Tvoj izveštaj je spreman.</b></p>'}<button onclick="${nx?`city('${c.id}')`:`report('${c.id}')`}">${nx?'Nastavi →':'Otvori izveštaj'}</button></div>`}
+const DEMO={
+ns:[[0,'🕰️','Stali smo ispod sata i svi smo prvo pogrešili vreme. Tek kad smo se setili ribara na Dunavu, veća kazaljka je dobila smisao.'],
+[2,'🏛️','U vitrini muzeja našli smo stari fenjer. Dok smo ga gledali, zamislili smo ko je njime osvetljavao mračne hodnike tvrđave.'],
+[4,'🗿','Bronzani Miletić gleda niz trg kao da još vodi sednicu. Pored njega smo se slikali i prvi put do kraja pročitali tablu.'],
+[11,'🌅','Sunce je zašlo iza Dunava i ceo grad je zasijao. Poželeli smo da svaki naš drug vidi Novi Sad baš ovako.']],
+ce:[[0,'⛪','Kamene zidine manastira zvuče tiše nego napolju. Pokušali smo da zamislimo kako je izgledao grad kad je ovde počeo život.'],
+[2,'🎱','Biljarda je manja nego što smo mislili, ali zato puna priča. Svi smo tražili sto sa zelenim suknom.'],
+[4,'👑','Dvor je skroman za jednog kralja, i baš zato nas je iznenadio. Razgovarali smo kako su ljudi tada živeli.'],
+[11,'🏔️','Cetinje je mirno i staro, kao grad koji ne mora da se hvali. Ovde se priča čuje i kad niko ne govori.']],
+mo:[[0,'🌉','Stari most izgleda lakše nego što je. Stali smo na sredinu i pogledali dole u smaragdnu Neretvu.'],
+[2,'🗼','U muzeju smo videli kako je most obnavljan kamen po kamen. Shvatili smo koliko je ljudi učestvovalo u tome.'],
+[6,'🤿','Skakač se dugo pripremao pre skoka, a mi smo zadržali dah. Aplauz se čuo sa obe obale.'],
+[11,'✨','Mostar je grad koji se podigao iz ruševina. Njegov most je poruka da se i razdvojeno može ponovo spojiti.']]};
+function demoImg(t,c,e){const s=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c}'/><stop offset='1' stop-color='#0d1015'/></linearGradient></defs><rect width='600' height='400' fill='url(#g)'/><circle cx='460' cy='110' r='46' fill='#f0cf8e' opacity='.85'/><path d='M0 330 L110 240 L200 300 L320 200 L450 310 L600 250 V400 H0Z' fill='#000' opacity='.35'/><text x='300' y='215' font-size='84' text-anchor='middle'>${e}</text><text x='300' y='370' font-size='26' fill='#fff' text-anchor='middle' font-family='Georgia'>${t}</text></svg>`;return 'data:image/svg+xml;utf8,'+encodeURIComponent(s)}
+function demoGroup(c){let p='';[110,200,300,400,490].forEach((x,i)=>{p+=`<circle cx='${x}' cy='${190+(i%2)*14}' r='30' fill='#f0cf8e'/><rect x='${x-34}' y='${226+(i%2)*14}' width='68' height='110' rx='30' fill='#fff' opacity='.85'/>`});
+const s=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${c}'/><stop offset='1' stop-color='#0d1015'/></linearGradient></defs><rect width='600' height='400' fill='url(#g)'/>${p}<text x='300' y='385' font-size='22' fill='#fff' text-anchor='middle' font-family='Georgia'>Grupna fotografija</text></svg>`;return 'data:image/svg+xml;utf8,'+encodeURIComponent(s)}
+function gpic(el,id){const f=el.files[0];if(!f)return;const im=new Image(),u=URL.createObjectURL(f);
+im.onload=()=>{const r=Math.min(1,900/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=im.width*r;cv.height=im.height*r;cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);P['grp_'+id]=cv.toDataURL('image/jpeg',.7);saveP();URL.revokeObjectURL(u);report(id)};im.src=u}
+function report(id,demo){stopCam();const c=CN(id);let st,grp,done;
+if(demo){st=DEMO[id].map(([i,e,n])=>({q:c.Q[i],i,img:demoImg(c.Q[i].t,c.c,e),n}));grp=demoGroup(c.c);done=12}
+else{st=c.Q.map((q,i)=>({q,i,k:key(c,i)})).filter(x=>S.done[x.k]&&(P[x.k]||S.notes[x.k])).map(x=>({q:x.q,i:x.i,img:P[x.k],n:S.notes[x.k]}));grp=P['grp_'+id];done=cd(c)}
+const team=demo?'Ekipa 3B':(S.team||''),nph=st.filter(x=>x.img).length+(grp?1:0),pages=[];
+for(let j=0;j<st.length;j+=3)pages.push(st.slice(j,j+3));
+const tot=pages.length+2,foot=n=>`<div class="foot"><span>Skriveno nasleđe · ${c.name}</span><span>${n}/${tot}</span></div>`;
+const ctl=`<div class="np"><button class="g" onclick="${demo?'home()':`city('${id}')`}">← Nazad</button>${demo?`<div class="tip" style="margin:12px 0">👁 Demo: ilustracije i primer rečenica. U pravom izveštaju su tvoje fotografije i tvoje reči.</div>`:`<div class="card"><input type="text" placeholder="Naziv ekipe / odeljenja" value="${esc(S.team||'')}" onchange="S.team=this.value;save();report('${id}')"><label class="btn" style="display:inline-block;margin-top:10px">📸 ${grp?'Zameni':'Dodaj'} grupnu fotografiju<input type="file" accept="image/*" hidden onchange="gpic(this,'${id}')"></label></div>`}<button onclick="print()">🖨 Sačuvaj kao PDF (A4)</button></div>`;
+const cover=`<div class="page"><div class="pg"><div class="ey">Putopis nasleđa</div><h1>${c.name}</h1><div class="ft" style="font-size:2.6cqw">${c.tag}${team?' · '+esc(team):''} · ${new Date().toLocaleDateString('sr-Latn')}</div>${grp?`<img class="ph" style="margin-top:3cqw" src="${grp}" alt="Grupna fotografija">`:`<div class="np" style="margin-top:3cqw;aspect-ratio:3/2;border:2px dashed #d8cdb6;border-radius:1.2cqw;display:grid;place-items:center;color:#9a9080;font-size:2.4cqw">Ovde ide grupna fotografija</div>`}<div class="nt" style="text-align:center">Naša ekipa u gradu ${c.name}</div><div class="row"><div class="stat"><b>${done}/12</b>zadataka</div><div class="stat"><b>${nph}</b>fotografija</div><div class="stat"><b>${st.length}</b>zapisanih stanica</div></div>${foot(1)}</div></div>`;
+const mid=pages.map((g,pi)=>`<div class="page"><div class="pg"><div class="ey">${c.name} · stanice</div>${g.map((x,n)=>`<div class="row" style="${n%2?'flex-direction:row-reverse':''}">${x.img?`<img class="ph" style="width:38cqw;flex:none;aspect-ratio:4/3" src="${x.img}" alt="">`:''}<div style="flex:1;min-width:0"><div class="ey">Stanica ${x.i+1}</div><h3>${x.q.t}</h3>${x.n?`<div class="nt">„${esc(x.n)}"</div>`:''}<div class="ft">${x.q.f}</div></div></div>`).join('')}${foot(pi+2)}</div></div>`).join('');
+const last=`<div class="page"><div class="pg"><div class="ey">Pečat grada</div><h1>Misija ispunjena</h1><div style="align-self:center;margin:4cqw 0;width:34cqw;height:34cqw;border-radius:50%;border:1cqw double ${c.c};color:${c.c};display:grid;place-items:center;font:700 4.4cqw var(--hf);transform:rotate(-8deg)">${c.name}</div><div class="ft" style="columns:2;font-size:2.2cqw">${c.Q.map((q,i)=>`<div>${S.done[key(c,i)]||demo?'✓':'○'} ${q.t}</div>`).join('')}</div><div class="nt" style="margin-top:3cqw">Hvala što si otkrio skriveno nasleđe grada ${c.name}. Svaka fotografija i rečenica deo su priče koju si ti ispričao.</div>${foot(tot)}</div></div>`;
+view(ctl+cover+mid+last)}
+function unlock(t){const m=(t||'').match(/(NS|CE|MO)\d{2}/i);if(!m)return false;
+const cc=m[0].toUpperCase(),c=CN(cc.slice(0,2).toLowerCase()),i=+cc.slice(2)-1;
+if(!c||!c.Q[i]||!c.Q[i].qr)return false;
+if(i>cd(c)&&!S.done[key(c,i)]){alert('Prvo reši prethodne zadatke u gradu '+c.name+'.');return true}
+S.scan[key(c,i)]=1;save();quest(c.id,i);return true}
+function manual(){const v=document.getElementById('mc').value;
+if(v.trim().toUpperCase().includes(code(_c,_i))){S.scan[key(_c,_i)]=1;save();quest(_c.id,_i)}else document.getElementById('msg').textContent='Pogrešan kod za ovu lokaciju.'}
+async function scan(){const m=document.getElementById('msg'),v=document.getElementById('vd');
+if(!('BarcodeDetector' in window)||!navigator.mediaDevices){m.textContent='Skener nije podržan. Skeniraj kod kamerom telefona ili ga upiši ručno.';return}
+try{cam=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});v.srcObject=cam;v.hidden=false;await v.play();const bd=new BarcodeDetector({formats:['qr_code']});
+const loop=async()=>{if(!cam)return;try{const r=await bd.detect(v);if(r.length&&r[0].rawValue.toUpperCase().includes(code(_c,_i))){stopCam();S.scan[key(_c,_i)]=1;save();return quest(_c.id,_i)}else if(r.length)m.textContent='Ovo nije kod za ovu lokaciju.'}catch(e){}setTimeout(loop,400)};loop()}
+catch(e){m.textContent='Kamera nije dostupna. Upiši kod ručno.'}}
+function stopCam(){if(cam){cam.getTracks().forEach(t=>t.stop());cam=null}}
+function admin(){view(`<div class="np"><button class="g" onclick="home()">← Nazad</button><h1>QR kodovi</h1><p class="mu">Štampaj i zalepi svaki kod na lokaciju. Upiši javni link aplikacije:</p><input type="text" id="base" value="${location.href.split('#')[0]}" oninput="drawQR()"><label style="display:block;margin:12px 0"><input type="checkbox" ${S.demo?'checked':''} onchange="S.demo=this.checked?1:0;save()"> Demo režim (preskoči skeniranje i fotografisanje)</label><button onclick="print()">🖨 Štampaj</button></div><div class="qrs" id="qrs" style="margin-top:14px"></div>`);
+const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';s.onload=drawQR;document.head.appendChild(s)}
+function drawQR(){if(!window.QRCode)return;const b=document.getElementById('base').value.split('#')[0],box=document.getElementById('qrs');box.innerHTML='';
+CITIES.forEach(c=>c.Q.forEach((q,i)=>{if(!q.qr)return;const d=document.createElement('div');d.className='qi';const w=document.createElement('div');d.appendChild(w);d.insertAdjacentHTML('beforeend',`<b>${code(c,i)}</b><br>${c.name}: ${q.t}`);box.appendChild(d);new QRCode(w,{text:b+'#'+code(c,i),width:140,height:140})}))}
+window.addEventListener('hashchange',()=>{unlock(location.hash)});
+home();if(location.hash)unlock(location.hash);
+</script></body></html>
